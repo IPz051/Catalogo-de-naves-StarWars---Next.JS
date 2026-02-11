@@ -1,105 +1,249 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #05070a;
+  --foreground: #f0f2f5;
+  --sw-yellow: #ffe81f;
+  --sw-blue: #4bd5ee;
+  --sw-red: #ff0037;
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 232, 31, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sw-yellow: var(--sw-yellow);
+  --color-sw-blue: var(--sw-blue);
+  --font-orbitron: var(--font-orbitron);
+  --font-exo-2: var(--font-exo-2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-exo-2), sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* -------------------------------------------------------------------------------------------------- */
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  height: 4rem;
+/* Starfield Animation */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
 }
 
-header>div {
-  font-weight: 700;
+.stars, .stars2, .stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stars {
+  background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png') repeat top center;
+  z-index: 0;
+  animation: move-stars-back 200s linear infinite;
+}
+
+.stars2 {
+  background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/twinkling.png') repeat top center;
+  z-index: 1;
+  animation: move-twink-back 200s linear infinite;
+}
+
+@keyframes move-stars-back {
+  from { background-position: 0 0; }
+  to { background-position: -10000px 5000px; }
+}
+
+@keyframes move-twink-back {
+  from { background-position: 0 0; }
+  to { background-position: -10000px 5000px; }
+}
+
+/* Typography */
+h1, h2, h3, .logo-text {
+  font-family: var(--font-orbitron), sans-serif;
   text-transform: uppercase;
-}
-
-header nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-header a:hover {
-  color: #ffe81f;
-}
-
-header,
-main {
-  max-width: 48rem;
-  margin: 0 auto;
+  letter-spacing: 0.1em;
 }
 
 h1 {
-  color: #ffe81f;
+  font-size: 2.5rem;
+  color: var(--sw-yellow);
+  text-shadow: 0 0 10px rgba(255, 232, 31, 0.5);
+  margin-bottom: 1.5rem;
 }
 
-p {
-  margin-top: 1rem;
-}
-
-img {
-  display: block;
-  margin: 0 auto;
-  object-fit: contain;
-}
-
-ul {
+/* Header & Nav */
+.glass-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  list-style: none;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
 }
 
-li {
-  flex: 0 1 15.33rem;
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--sw-yellow);
+  text-decoration: none;
 }
 
-li > a {
-  border: 2px solid var(--foreground);
-  border-radius: 8px;
-  display: block;
-  padding: 1rem;
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  margin-left: 2rem;
+  font-family: var(--font-orbitron);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
+.nav-link:hover {
+  color: var(--sw-yellow);
+  text-shadow: 0 0 8px var(--sw-yellow);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--sw-yellow);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Containers */
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Buttons */
 .btn {
-  background-color: var(--background);
-  border: 2px solid var(--foreground);
-  border-radius: 8px;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: transparent;
+  border: 2px solid var(--sw-yellow);
+  color: var(--sw-yellow);
+  font-family: var(--font-orbitron);
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 700;
+  box-shadow: 0 0 10px rgba(255, 232, 31, 0.2);
+}
+
+.btn:hover {
+  background: var(--sw-yellow);
+  color: var(--background);
+  box-shadow: 0 0 20px rgba(255, 232, 31, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Cards */
+.card-grid {
   display: grid;
-  place-content: center;
-  min-height: 3rem;
-  padding: .625rem 1.25rem;
-  width: max-content;
-  min-width: 12rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.sw-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sw-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--sw-yellow);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 232, 31, 0.3);
+}
+
+.sw-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 10px rgba(75, 213, 238, 0.3));
+}
+
+.sw-card h3 {
+  color: var(--sw-blue);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.sw-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .glass-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav-link {
+    margin: 0 1rem;
+  }
 }

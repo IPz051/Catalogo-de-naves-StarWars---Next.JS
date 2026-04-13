@@ -2,6 +2,12 @@
 
 Bem-vindo ao repositório do projeto **Star Wars Spaceships Showcase**! Este é um projeto desenvolvido com **Next.js** e **TypeScript**, criado para explorar o universo de espaçonaves de Star Wars, permitindo visualizar detalhes de naves icônicas e filtrá-las por categorias.
 
+## 🌐 Projeto Online
+
+A aplicação está publicada na Vercel e pode ser acessada aqui:
+
+- [catalogo-de-naves-star-wars-next-js.vercel.app](https://catalogo-de-naves-star-wars-next-js.vercel.app/)
+
 ## 🚀 Tecnologias Utilizadas
 
 Este projeto foi construído utilizando as seguintes tecnologias:
